@@ -23,17 +23,17 @@ jobs:
         run: echo "Correct folder"
 
       - name: Install dependencies
-        working-directory: ./omar-eats-order-main/omar-eats-order-main
+        working-directory: ./omar-eats-order-main
         run: npm install
 
       - name: Build project
-        working-directory: ./omar-eats-order-main/omar-eats-order-main
+        working-directory: ./omar-eats-order-main
         run: npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./omar-eats-order-main/omar-eats-order-main/dist
+          path: ./omar-eats-order-main/dist
 
   deploy:
     needs: build

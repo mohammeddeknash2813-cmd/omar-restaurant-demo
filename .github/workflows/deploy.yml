@@ -13,23 +13,21 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./omar-eats-order-main/omar-eats-order-main
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      # GA NAAR DE JUISTE SUBMAP
+      - name: Change directory
+        run: echo "Correct folder"
 
       - name: Install dependencies
+        working-directory: ./omar-eats-order-main/omar-eats-order-main
         run: npm install
 
       - name: Build project
+        working-directory: ./omar-eats-order-main/omar-eats-order-main
         run: npm run build
 
       - name: Upload build artifacts

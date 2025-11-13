@@ -2,24 +2,17 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # staat CORS toe voor alle origins; veilig voor oefening
+CORS(app)
 
-orders = []
-
-@app.post('/api/order')
+@app.route("/api/order", methods=["POST"])
 def order():
     data = request.get_json()
-    if not data or 'items' not in data:
-        return jsonify({'error': 'invalid payload'}), 400
-    # eenvoudige validatie
-    order_id = len(orders) + 1
-    orders.append({'id': order_id, 'data': data})
-    return jsonify({'status': 'ok', 'order_id': order_id}), 201
+    print("New order received:", data)
+    return jsonify({"message": "Order received successfully", "data": data}), 200
 
-@app.get('/api/orders')
-def list_orders():
-    # alleen voor test/doel; niet openen in productie
-    return jsonify(orders), 200
+@app.route("/")
+def home():
+    return "Omar Restaurant API is running!"
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

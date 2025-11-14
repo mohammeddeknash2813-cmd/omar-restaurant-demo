@@ -139,7 +139,7 @@ export const submitOrder = async (customerInfo: {
   };
   
   try {
-   const response = await fetch(
+const response = await fetch(
   "https://omar-restaurant-demo.onrender.com/api/order",
   {
     method: "POST",

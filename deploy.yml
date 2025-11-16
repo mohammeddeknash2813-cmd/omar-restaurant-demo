@@ -1,0 +1,46 @@
+name: Deploy Vite site to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Werkdirectory voor jouw project (pas aan als nodig)
+      - name: Install dependencies
+        working-directory: ./omar-eats-order-main/omar-eats-order-main
+        run: npm install
+
+      - name: Build project
+        working-directory: ./omar-eats-order-main/omar-eats-order-main
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./omar-eats-order-main/omar-eats-order-main/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
